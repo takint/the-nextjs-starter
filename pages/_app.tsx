@@ -1,11 +1,12 @@
-import withReduxStore from '../lib/with-redux-store';
-import { Provider } from 'react-redux';
-import { config } from '@fortawesome/fontawesome-svg-core';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import { AppProps } from 'next/app';
-import { createGlobalStyle } from 'styled-components';
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { AppProps } from 'next/app'
+import { createGlobalStyle } from 'styled-components'
+import { NextSeo } from 'next-seo'
+import seoConfig from '../next-seo.config'
+import AppStyles from '../src/styles/global.styles.tw'
 
-config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
+config.autoAddCss = false // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 
 const GlobalStyle = createGlobalStyle`
  * {
@@ -14,19 +15,18 @@ const GlobalStyle = createGlobalStyle`
   html {
     height: 100%;
   }
-`;
+`
 
-interface AppPropsWithRedux extends AppProps {
-  reduxStore: any;
-}
-
-function MyApp({ Component, pageProps, reduxStore }: AppPropsWithRedux) {
+function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={reduxStore}>
-      <Component {...pageProps} />
-      <GlobalStyle />
-    </Provider>
-  );
+    <>
+      <AppStyles>
+        <NextSeo {...seoConfig} />
+        <Component {...pageProps} />
+        <GlobalStyle />
+      </AppStyles>
+    </>
+  )
 }
 
-export default withReduxStore(MyApp);
+export default App

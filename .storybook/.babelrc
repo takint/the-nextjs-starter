@@ -3,6 +3,11 @@
   "plugins": [
     "macros",
     "@babel/plugin-transform-typescript",
-    ["styled-components", { "ssr": true }]
+    [
+      "styled-components",
+      {
+        "ssr": true
+      }
+    ]
   ]
 }
